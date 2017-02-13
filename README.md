@@ -1,8 +1,8 @@
 Leaflet.VectorTileLayer
 =======================
 
-This module provides a Leaflet layer that displays [vector tiles][VT]. It
-is very similar to [`Leaflet.VectorGrid`][LVG].
+This module provides a [Leaflet][L] layer that displays [vector tiles][VT].
+It is very similar to [`Leaflet.VectorGrid`][LVG].
 
 Use
 ---
@@ -39,6 +39,7 @@ At this time, only vector tiles in [`protobuf`][PBF] format are supported,
 but support for other formats may be added through options in the future.
 
 
+[L]:    http://leafletjs.com/
 [LVG]:  https://github.com/Leaflet/Leaflet.VectorGrid
 [PBF]:  https://developers.google.com/protocol-buffers/
 [VT]:   https://github.com/mapbox/vector-tile-spec

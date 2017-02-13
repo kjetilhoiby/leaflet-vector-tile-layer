@@ -30,6 +30,7 @@
  */
 
 import featureTile from './FeatureTile.js';
+import './fetch.js';
 import { GridLayer, Util } from 'leaflet';
 import Pbf from 'pbf';
 import { VectorTile } from 'vector-tile';
@@ -39,33 +40,13 @@ function err() {
 }
 
 function load(url) {
-        if ('function' === typeof fetch) {
-                return fetch(url).then(response => {
-                        if (response.ok) {
-                                return response.arrayBuffer();
-                        }
-                        if (404 !== response.status) {
-                                throw err(url, response.status, response.statusText);
-                        }
-                });
-        }
-
-        const xhr = new XMLHttpRequest();
-
-        xhr.open('GET', url);
-        xhr.responseType = 'arraybuffer';
-
-        return new Promise((resolve, reject) => {
-                xhr.onload = function () {
-                        if (200 !== xhr.status) {
-                                if (404 !== xhr.status) {
-                                        reject(err(url, xhr.status, xhr.statusText));
-                                }
-                                return;
-                        }
-                        resolve(xhr.response);
-                };
-                xhr.send();
+        return fetch(url).then(response => {
+                if (response.ok) {
+                        return response.arrayBuffer();
+                }
+                if (404 !== response.status) {
+                        throw err(url, response.status, response.statusText);
+                }
         });
 }
 

@@ -14,7 +14,7 @@ well-suited for use as an overlay. `VectorTileLayer` passes unhandled mouse
 events on to lower layers.
 
 `VectorTileLayer` also supports two options `min/maxDetailZoom` which are
-subtly different from `VectorGrid`'s `min/maxNativeZoom`. Both offer the
+subtly different from `VectorGrid`'s `min/maxNativeZoom`. Both provide the
 possibility to specify a range of zoom levels that offer an optimal
 trade-off between detail and size. When using the `native` variants, tiles
 above or below the zoom range are scaled, changing the stroke weight. The
@@ -29,7 +29,7 @@ Loads vector tiles from a URL template like
 
         https://{s}.example.com/tiles/{z}/{x}/{y}.pbf
 
-This pacakge can be used as an ES5 module.
+This pacakge can be used as an ES6 module.
 
 ```js
 import vectorTileLayer from 'leaflet-vector-tile-layer';
@@ -37,7 +37,7 @@ import vectorTileLayer from 'leaflet-vector-tile-layer';
 const tileLayer = vectorTileLayer(url, options);
 ```
 
-The AMD build comes with all dependencies included. If imported as an ES5
+The AMD build comes with all dependencies included. If imported as an ES6
 module, you will need to make the dependencies available to your build
 system, for example:
 

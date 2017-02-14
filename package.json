@@ -1,6 +1,6 @@
 {
   "name": "leaflet-vector-tile-layer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Leaflet layer for vector tiles",
   "keywords": [
     "leaflet",

@@ -8,11 +8,7 @@ In contrast to `VectorGrid`, this class has been designed as much as
 possible in terms of Leaflet's public API. This makes it more likely to
 continue working with future versions of Leaflet.
 
-The biggest difference to `VectorGrid` is the [styling](#styling). Another
-difference is that `VectorGrid` absorbs mouse events, so it's not
-well-suited for use as an overlay. `VectorTileLayer` passes unhandled mouse
-events on to lower layers.
-
+The biggest difference to `VectorGrid` is the [styling](#styling).
 `VectorTileLayer` also supports two options `min/maxDetailZoom` which are
 subtly different from `VectorGrid`'s `min/maxNativeZoom`. Both provide the
 possibility to specify a range of zoom levels that offer an optimal

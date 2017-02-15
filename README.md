@@ -52,8 +52,9 @@ different approach to styling. Whereas `VectorGrid` requires you to specify
 styling for a fixed set of vector tile layer names in advance, this class
 allows you to specify a single style for all layers irrespective of their
 names. This is particularly useful when specifying a function which is
-called with the rendered feature and the layer name. This way, clients can
-react dynamically to layer names or ignore them altogether.
+called with the rendered feature, the layer name and the current zoom
+level. This way, clients can react dynamically to layer names or ignore
+them altogether.
 
 Another feature not supported by `VectorGrid` is a `setStyle()` call which
 allows changing the styling of the entire layer. This can be used to

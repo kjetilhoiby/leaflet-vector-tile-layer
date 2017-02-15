@@ -93,13 +93,20 @@ export default function vectorTileLayer(url, options) {
                 delete m_featureTiles[id];
         });
 
-        let m_map;
+        let m_map, m_zoom;
+        function updateZoom() {
+                m_zoom = m_map.getZoom();
+        }
+
         self.onAdd = function onAdd(map) {
                 m_map = map;
+                m_map.on('zoomend', updateZoom);
+                updateZoom();
                 return m_super.onAdd.apply(self, arguments);
         };
 
         self.onRemove = function onRemove(map) {
+                m_map.off('zoomend', updateZoom);
                 m_map = void 0;
                 return m_super.onRemove.apply(self, arguments);
         };
@@ -170,7 +177,7 @@ export default function vectorTileLayer(url, options) {
                 const style = options.style;
 
                 return 'function' === typeof style
-                       ? style(feature, layerName)
+                       ? style(feature, layerName, m_zoom)
                        : style;
         };
 
@@ -223,7 +230,7 @@ export default function vectorTileLayer(url, options) {
                 return options.subdomains[index];
         }
 
-        function legacyStyle(feature, layerName) {
+        function legacyStyle(feature, layerName, zoom) {
                 const { getFeatureId, vectorTileLayerStyles } = options;
 
                 let layerStyle = vectorTileLayerStyles[layerName];
@@ -235,7 +242,7 @@ export default function vectorTileLayer(url, options) {
                 }
 
                 if (layerStyle instanceof Function) {
-                        layerStyle = layerStyle(feature.properties, 0);
+                        layerStyle = layerStyle(feature.properties, zoom);
                 }
 
                 if (layerStyle instanceof Array) {

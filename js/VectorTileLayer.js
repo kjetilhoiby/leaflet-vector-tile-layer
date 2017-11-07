@@ -33,7 +33,7 @@ import featureTile from './FeatureTile.js';
 import './fetch.js';
 import { GridLayer, Util } from 'leaflet';
 import Pbf from 'pbf';
-import { VectorTile } from 'vector-tile';
+import { VectorTile } from '@mapbox/vector-tile';
 
 function err() {
         return new Error(Array.prototype.join.call(arguments, ': '));

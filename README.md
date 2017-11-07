@@ -38,7 +38,7 @@ module, you will need to make the dependencies available to your build
 system, for example:
 
 ```sh
-$ npm install pbf vector-tile
+$ npm install @mapbox/vector-tile pbf
 ```
 
 See this package's development dependencies for version information.

@@ -38,7 +38,7 @@ import {
         Polygon,
         SVG,
 } from 'leaflet';
-import { VectorTileFeature } from 'vector-tile';
+import { VectorTileFeature } from '@mapbox/vector-tile';
 
 export default function featureLayer(feature, layerName, rootGroup, pxPerExtent, options) {
         const self = new Layer(options);

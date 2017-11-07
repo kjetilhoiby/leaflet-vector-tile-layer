@@ -23,7 +23,7 @@ Use
 ---
 Loads vector tiles from a URL template like
 
-        https://{s}.example.com/tiles/{z}/{x}/{y}.pbf
+    https://{s}.example.com/tiles/{z}/{x}/{y}.pbf
 
 This pacakge can be used as an ES6 module.
 

@@ -37,5 +37,8 @@
     "rollup-plugin-commonjs": "*",
     "rollup-plugin-node-resolve": "*",
     "rollup-plugin-uglify": "*"
+  },
+  "peerDependencies": {
+    "leaflet": "^1.0.0"
   }
 }

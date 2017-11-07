@@ -6,21 +6,27 @@
     "leaflet",
     "vector tiles"
   ],
-  "homepage": "https://gitlab.com/jkuebart/Leaflet.VectorTileLayer#README",
+  "homepage": "https://gitlab.com/jkuebart/Leaflet.VectorTileLayer#readme",
   "bugs": {
     "url": "https://gitlab.com/jkuebart/Leaflet.VectorTileLayer/issues"
   },
   "license": "BSD-3-Clause",
   "author": "Joachim Kuebart <joachim.kuebart@gmail.com>",
+  "files": [
+    "CONTRIBUTORS",
+    "dist",
+    "js"
+  ],
   "main": "dist/VectorTileLayer.js",
   "module": "js/VectorTileLayer.js",
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/jkuebart/Leaflet.VectorTileLayer.git"
+    "url": "https://gitlab.com/jkuebart/Leaflet.VectorTileLayer.git"
   },
   "scripts": {
     "build": "rollup -c",
-    "prepublishOnly": "npm run build",
+    "clean": "rm -fr dist node_modules package-lock.json",
+    "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

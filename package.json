@@ -33,11 +33,13 @@
   "scripts": {
     "build": "rollup -c",
     "clean": "rm -fr dist node_modules package-lock.json",
+    "lint": "jslint rollup.config.js package.json src/js/*",
     "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
     "@mapbox/vector-tile": "*",
+    "jslint-cli": "*",
     "pbf": "*",
     "rollup": "*",
     "rollup-plugin-buble": "*",

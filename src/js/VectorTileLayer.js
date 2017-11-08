@@ -31,9 +31,9 @@
 
 import featureTile from "./FeatureTile.js";
 import "./fetch.js";
-import { GridLayer, Util } from "leaflet";
+import {GridLayer, Util} from "leaflet";
 import Pbf from "pbf";
-import { VectorTile } from "@mapbox/vector-tile";
+import {VectorTile} from "@mapbox/vector-tile";
 
 function err() {
     return new Error(Array.prototype.join.call(arguments, ": "));
@@ -140,7 +140,7 @@ export default function vectorTileLayer(url, options) {
         options.style = style;
 
         eachFeatureLayer(function (featureLayer) {
-            const { feature, layerName } = featureLayer;
+            const {feature, layerName} = featureLayer;
             const featureStyle = self.getFeatureStyle(feature, layerName);
 
             featureLayer.setStyle(featureStyle);
@@ -202,7 +202,7 @@ export default function vectorTileLayer(url, options) {
     }
 
     function clampZoom(zoom) {
-        const { minDetailZoom, maxDetailZoom } = options;
+        const {minDetailZoom, maxDetailZoom} = options;
 
         if (void 0 !== minDetailZoom && zoom < minDetailZoom) {
             return minDetailZoom;
@@ -216,7 +216,7 @@ export default function vectorTileLayer(url, options) {
     }
 
     function getZoomForUrl(zoom) {
-        const { maxZoom, zoomReverse, zoomOffset } = options;
+        const {maxZoom, zoomReverse, zoomOffset} = options;
 
         if (zoomReverse) {
             zoom = maxZoom - zoom;
@@ -231,7 +231,7 @@ export default function vectorTileLayer(url, options) {
     }
 
     function legacyStyle(feature, layerName, zoom) {
-        const { getFeatureId, vectorTileLayerStyles } = options;
+        const {getFeatureId, vectorTileLayerStyles} = options;
 
         let layerStyle = vectorTileLayerStyles[layerName];
         if (getFeatureId) {

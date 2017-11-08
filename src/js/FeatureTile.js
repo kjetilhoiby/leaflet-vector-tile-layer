@@ -30,7 +30,7 @@
  */
 
 import featureLayer from "./FeatureLayer.js";
-import { SVG } from "leaflet";
+import {SVG} from "leaflet";
 
 export default function featureTile(coords, layer) {
     const self = {};

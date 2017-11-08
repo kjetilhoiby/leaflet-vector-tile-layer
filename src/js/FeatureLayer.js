@@ -133,7 +133,7 @@ export default function featureLayer(feature, layerName, rootGroup, pxPerExtent,
     case "LineString":
     case "Polygon":
         const geometry = feature.loadGeometry().map(
-            ring => ring.map(p => point(p).scaleBy(pxPerExtent))
+            (ring) => ring.map((p) => point(p).scaleBy(pxPerExtent))
         );
 
         m_path.setAttribute("d",

@@ -36,7 +36,7 @@ if ("function" !== typeof window.fetch) {
         xhr.open("GET", url);
         xhr.responseType = "arraybuffer";
 
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             xhr.onload = function onload() {
                 resolve({
                     ok: 200 === xhr.status,

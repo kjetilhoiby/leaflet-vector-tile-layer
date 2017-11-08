@@ -54,7 +54,7 @@ export default function featureTile(coords, layer) {
     }
 
     self.addVectorTile = function addVectorTile(vectorTile) {
-        Object.keys(vectorTile.layers).forEach(layerName => {
+        Object.keys(vectorTile.layers).forEach((layerName) => {
             const layer = vectorTile.layers[layerName];
             const pxPerExtent = m_tileSize.divideBy(layer.extent);
 
@@ -68,7 +68,7 @@ export default function featureTile(coords, layer) {
         return self;
     };
 
-    self.eachFeatureLayer = func => m_layers.map(func);
+    self.eachFeatureLayer = (func) => m_layers.map(func);
     self.domElement = () => m_svg;
     self.coords = () => coords;
 

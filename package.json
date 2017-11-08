@@ -14,8 +14,15 @@
   "author": "Joachim Kuebart <joachim.kuebart@gmail.com>",
   "files": [
     "AUTHORS",
-    "dist",
-    "src/js"
+    "LICENCE",
+    "README.md",
+    "dist/VectorTileLayer.js",
+    "dist/VectorTileLayer.js.map",
+    "src/js/FeatureLayer.js",
+    "src/js/FeatureTile.js",
+    "src/js/VectorTileLayer.js",
+    "src/js/fetch.js",
+    "package.json"
   ],
   "main": "dist/VectorTileLayer.js",
   "module": "src/js/VectorTileLayer.js",

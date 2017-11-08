@@ -65,10 +65,10 @@ export default function featureTile(coords, layer) {
             const tileLayer = vectorTile.layers[layerName];
             const pxPerExtent = m_tileSize.divideBy(tileLayer.extent);
 
-            for (let i = 0; i != tileLayer.length; ++i) {
-                const feature = tileLayer.feature(i);
-
-                addFeature(feature, layerName, pxPerExtent);
+            let i = 0;
+            while (i !== tileLayer.length) {
+                addFeature(tileLayer.feature(i), layerName, pxPerExtent);
+                i += 1;
             }
         });
 

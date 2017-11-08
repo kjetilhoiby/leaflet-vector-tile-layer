@@ -140,13 +140,14 @@ export default function featureLayer(feature, layerName, rootGroup, pxPerExtent,
         break;
     case "LineString":
     case "Polygon":
-        const geometry = feature.loadGeometry().map(
-            (ring) => ring.map((p) => point(p).scaleBy(pxPerExtent))
-        );
-
         m_path.setAttribute(
             "d",
-            SVG.pointsToPath(geometry, "Polygon" === m_type)
+            SVG.pointsToPath(
+                feature.loadGeometry().map(
+                    (ring) => ring.map((p) => point(p).scaleBy(pxPerExtent))
+                ),
+                "Polygon" === m_type
+            )
         );
 
         if (options.className) {

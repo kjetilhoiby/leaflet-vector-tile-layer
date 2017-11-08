@@ -31,14 +31,14 @@
 
 /*property
     _tileZoom, abs, addEventParent, addFeatureLayer, addTo, addVectorTile,
-    apply, arrayBuffer, call, coords, createTile, divideBy, domElement,
+    arrayBuffer, call, coords, createTile, divideBy, domElement,
     eachFeatureLayer, extend, feature, forEach, getFeatureId, getFeatureStyle,
     getPrototypeOf, getTileSize, getTileUrl, getZoom, getZoomScale, join, keys,
     layerName, length, maxDetailZoom, maxZoom, minDetailZoom, minZoom, off, ok,
-    on, onAdd, onRemove, properties, prototype, removeEventParent,
-    removeFeatureLayer, removeFrom, resetFeatureStyle, round, s,
-    setFeatureStyle, setStyle, split, status, statusText, style, subdomains,
-    template, then, vectorTileLayerStyles, x, y, z, zoomOffset, zoomReverse
+    on, onAdd, onRemove, properties, removeEventParent, removeFeatureLayer,
+    removeFrom, resetFeatureStyle, round, s, setFeatureStyle, setStyle, split,
+    status, statusText, style, subdomains, template, then,
+    vectorTileLayerStyles, x, y, z, zoomOffset, zoomReverse
 */
 
 import featureTile from "./FeatureTile.js";
@@ -47,8 +47,8 @@ import {GridLayer, Util} from "leaflet";
 import Pbf from "pbf";
 import {VectorTile} from "@mapbox/vector-tile";
 
-function err() {
-    return new Error(Array.prototype.join.call(arguments, ": "));
+function err(...args) {
+    return new Error(args.join(": "));
 }
 
 function load(url) {
@@ -111,17 +111,17 @@ export default function vectorTileLayer(url, options) {
         m_zoom = m_map.getZoom();
     }
 
-    self.onAdd = function onAdd(map) {
+    self.onAdd = function onAdd(map, ...rest) {
         m_map = map;
         m_map.on("zoomend", updateZoom);
         updateZoom();
-        return m_super.onAdd.apply(self, arguments);
+        return m_super.onAdd.call(self, map, ...rest);
     };
 
-    self.onRemove = function onRemove() {
+    self.onRemove = function onRemove(...args) {
         m_map.off("zoomend", updateZoom);
         m_map = undefined;
-        return m_super.onRemove.apply(self, arguments);
+        return m_super.onRemove.call(self, ...args);
     };
 
     self.createTile = function createTile(coords, done) {

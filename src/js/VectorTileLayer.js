@@ -255,7 +255,7 @@ export default function vectorTileLayer(url, options) {
             }
         }
 
-        if (layerStyle instanceof Function) {
+        if ("function" === typeof layerStyle) {
             layerStyle = layerStyle(feature.properties, zoom);
         }
 

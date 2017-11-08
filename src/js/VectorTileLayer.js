@@ -61,7 +61,7 @@ const defaultOptions = {
     minDetailZoom: void 0,
     subdomains: "abc",
     zoomOffset: 0,
-    zoomReverse: false,
+    zoomReverse: false
 };
 
 export default function vectorTileLayer(url, options) {

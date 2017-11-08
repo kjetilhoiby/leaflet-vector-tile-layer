@@ -36,7 +36,7 @@ import {
     Path,
     point,
     Polygon,
-    SVG,
+    SVG
 } from "leaflet";
 import { VectorTileFeature } from "@mapbox/vector-tile";
 

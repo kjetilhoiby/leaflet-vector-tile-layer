@@ -55,11 +55,11 @@ export default function featureTile(coords, layer) {
 
     self.addVectorTile = function addVectorTile(vectorTile) {
         Object.keys(vectorTile.layers).forEach(function (layerName) {
-            const layer = vectorTile.layers[layerName];
-            const pxPerExtent = m_tileSize.divideBy(layer.extent);
+            const tileLayer = vectorTile.layers[layerName];
+            const pxPerExtent = m_tileSize.divideBy(tileLayer.extent);
 
-            for (let i = 0; i != layer.length; ++i) {
-                const feature = layer.feature(i);
+            for (let i = 0; i != tileLayer.length; ++i) {
+                const feature = tileLayer.feature(i);
 
                 addFeature(feature, layerName, pxPerExtent);
             }

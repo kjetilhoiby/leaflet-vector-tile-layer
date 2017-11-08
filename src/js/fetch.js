@@ -41,7 +41,9 @@ if ("function" !== typeof window.fetch) {
                 ok: 200 === xhr.status,
                 status: xhr.status,
                 statusText: xhr.statusText,
-                arrayBuffer() { return xhr.response; }
+                arrayBuffer() {
+                    return xhr.response;
+                }
             });
             xhr.send();
         });

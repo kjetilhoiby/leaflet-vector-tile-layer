@@ -29,6 +29,18 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+/*property
+    _tileZoom, abs, addEventParent, addFeatureLayer, addTo, addVectorTile,
+    apply, arrayBuffer, call, coords, createTile, divideBy, domElement,
+    eachFeatureLayer, extend, feature, forEach, getFeatureId, getFeatureStyle,
+    getPrototypeOf, getTileSize, getTileUrl, getZoom, getZoomScale, join, keys,
+    layerName, length, maxDetailZoom, maxZoom, minDetailZoom, minZoom, off, ok,
+    on, onAdd, onRemove, properties, prototype, removeEventParent,
+    removeFeatureLayer, removeFrom, resetFeatureStyle, round, s,
+    setFeatureStyle, setStyle, split, status, statusText, style, subdomains,
+    template, then, vectorTileLayerStyles, x, y, z, zoomOffset, zoomReverse
+*/
+
 import featureTile from "./FeatureTile.js";
 import fetch from "./fetch.js";
 import {GridLayer, Util} from "leaflet";

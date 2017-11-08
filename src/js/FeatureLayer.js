@@ -29,6 +29,15 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+/*property
+    _map, addClass, addInteractiveTarget, addTo, appendChild, className, color,
+    create, dashArray, dashOffset, feature, fill, fillColor, fillOpacity,
+    fillRule, interactive, layerName, lineCap, lineJoin, loadGeometry, map,
+    opacity, options, pointsToPath, properties, prototype, removeAttribute,
+    removeClass, removeFrom, removeInteractiveTarget, scaleBy, setAttribute,
+    setStyle, stroke, type, types, weight
+*/
+
 import {
     DomUtil,
     extend,

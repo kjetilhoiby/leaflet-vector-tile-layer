@@ -31,6 +31,11 @@
 
 /*jslint browser*/
 
+/*property
+    arrayBuffer, fetch, freeze, ok, onload, open, response, responseType, send,
+    status, statusText
+*/
+
 let fetch;
 if ("function" === typeof window.fetch) {
     fetch = window.fetch;

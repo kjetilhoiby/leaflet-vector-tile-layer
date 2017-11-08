@@ -29,6 +29,13 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+/*property
+    addFeatureLayer, addVectorTile, appendChild, coords, create, divideBy,
+    domElement, eachFeatureLayer, extent, feature, forEach, freeze,
+    getFeatureStyle, getTileSize, keys, layers, length, map, push, setAttribute,
+    x, y
+*/
+
 import featureLayer from "./FeatureLayer.js";
 import {SVG} from "leaflet";
 

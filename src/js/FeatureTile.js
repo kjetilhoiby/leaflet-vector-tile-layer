@@ -54,7 +54,7 @@ export default function featureTile(coords, layer) {
     }
 
     self.addVectorTile = function addVectorTile(vectorTile) {
-        Object.keys(vectorTile.layers).forEach((layerName) => {
+        Object.keys(vectorTile.layers).forEach(function (layerName) {
             const layer = vectorTile.layers[layerName];
             const pxPerExtent = m_tileSize.divideBy(layer.extent);
 

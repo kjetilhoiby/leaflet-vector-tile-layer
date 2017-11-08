@@ -40,7 +40,7 @@ function err() {
 }
 
 function load(url) {
-    return fetch(url).then((response) => {
+    return fetch(url).then(function (response) {
         if (response.ok) {
             return response.arrayBuffer();
         }
@@ -80,7 +80,7 @@ export default function vectorTileLayer(url, options) {
     }
 
     const m_featureTiles = {};
-    self.on("tileunload", (evt) => {
+    self.on("tileunload", function (evt) {
         const id = tileId(evt.coords);
         const tile = m_featureTiles[id];
 
@@ -115,7 +115,7 @@ export default function vectorTileLayer(url, options) {
         const id = tileId(coords);
         const tile = m_featureTiles[id] = featureTile(coords, self);
 
-        load(self.getTileUrl(coords)).then((buffer) => {
+        load(self.getTileUrl(coords)).then(function (buffer) {
             tile.addVectorTile(new VectorTile(new Pbf(buffer)));
             done(null, tile);
         });
@@ -139,7 +139,7 @@ export default function vectorTileLayer(url, options) {
     self.setStyle = function setStyle(style) {
         options.style = style;
 
-        eachFeatureLayer((featureLayer) => {
+        eachFeatureLayer(function (featureLayer) {
             const { feature, layerName } = featureLayer;
             const featureStyle = self.getFeatureStyle(feature, layerName);
 

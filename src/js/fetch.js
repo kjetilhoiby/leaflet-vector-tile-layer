@@ -36,15 +36,13 @@ if ("function" !== typeof window.fetch) {
         xhr.open("GET", url);
         xhr.responseType = "arraybuffer";
 
-        return new Promise((resolve) => {
-            xhr.onload = function onload() {
-                resolve({
-                    ok: 200 === xhr.status,
-                    status: xhr.status,
-                    statusText: xhr.statusText,
-                    arrayBuffer() { return xhr.response; },
-                });
-            };
+        return new Promise(function (resolve) {
+            xhr.onload = () => resolve({
+                ok: 200 === xhr.status,
+                status: xhr.status,
+                statusText: xhr.statusText,
+                arrayBuffer() { return xhr.response; },
+            });
             xhr.send();
         });
     };

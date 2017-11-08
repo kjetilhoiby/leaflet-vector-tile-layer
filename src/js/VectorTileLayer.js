@@ -93,7 +93,8 @@ export default function vectorTileLayer(url, options) {
         delete m_featureTiles[id];
     });
 
-    let m_map, m_zoom;
+    let m_map;
+    let m_zoom;
     function updateZoom() {
         m_zoom = m_map.getZoom();
     }

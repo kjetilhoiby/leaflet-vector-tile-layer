@@ -73,4 +73,4 @@ export default function featureTile(coords, layer) {
     self.coords = () => coords;
 
     return self;
-}
+};

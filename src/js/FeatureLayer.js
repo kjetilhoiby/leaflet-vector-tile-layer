@@ -44,7 +44,7 @@ export default function featureLayer(feature, layerName, rootGroup, pxPerExtent,
     const self = new Layer(options);
     const m_super = Object.getPrototypeOf(self);
 
-    options = extend({}, options)
+    options = extend({}, options);
 
     self.feature = feature;
     self.layerName = layerName;
@@ -150,4 +150,4 @@ export default function featureLayer(feature, layerName, rootGroup, pxPerExtent,
     }
 
     return self;
-}
+};

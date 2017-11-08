@@ -193,7 +193,7 @@ export default function vectorTileLayer(url, options) {
         featureLayer.removeFrom(m_map);
 
         return self;
-    }
+    };
 
     function eachFeatureLayer(func) {
         Object.keys(m_featureTiles).forEach(
@@ -256,4 +256,4 @@ export default function vectorTileLayer(url, options) {
     }
 
     return self;
-}
+};

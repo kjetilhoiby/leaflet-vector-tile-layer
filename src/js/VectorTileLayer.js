@@ -51,7 +51,7 @@ function load(url) {
 }
 
 function tileId(coords) {
-    return [ coords.x, coords.y, coords.z ].join("|");
+    return `${coords.x}|${coords.y}|${coords.z}`;
 }
 
 const defaultOptions = {

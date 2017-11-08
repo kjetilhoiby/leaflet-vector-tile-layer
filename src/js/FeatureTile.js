@@ -39,7 +39,7 @@ export default function featureTile(coords, layer) {
     const m_rootGroup = SVG.create("g");
     const m_layers = [];
 
-    m_svg.setAttribute("viewBox", [0, 0, m_tileSize.x, m_tileSize.y].join(" "));
+    m_svg.setAttribute("viewBox", `0 0 ${m_tileSize.x} ${m_tileSize.y}`);
     m_svg.appendChild(m_rootGroup);
 
     function addFeature(feature, layerName, pxPerExtent) {

@@ -31,8 +31,11 @@
 
 /*jslint browser*/
 
-if ("function" !== typeof window.fetch) {
-    window.fetch = function fetch(url) {
+let fetch;
+if ("function" === typeof window.fetch) {
+    fetch = window.fetch;
+} else {
+    fetch = function (url) {
         const xhr = new XMLHttpRequest();
 
         xhr.open("GET", url);
@@ -51,3 +54,5 @@ if ("function" !== typeof window.fetch) {
         });
     };
 }
+
+export default fetch;

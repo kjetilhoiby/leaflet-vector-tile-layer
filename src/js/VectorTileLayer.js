@@ -30,7 +30,7 @@
  */
 
 import featureTile from "./FeatureTile.js";
-import "./fetch.js";
+import fetch from "./fetch.js";
 import {GridLayer, Util} from "leaflet";
 import Pbf from "pbf";
 import {VectorTile} from "@mapbox/vector-tile";

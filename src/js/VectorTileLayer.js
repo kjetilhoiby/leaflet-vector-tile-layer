@@ -57,8 +57,8 @@ function tileId(coords) {
 const defaultOptions = {
     minZoom: 0,
     maxZoom: 18,
-    maxDetailZoom: void 0,
-    minDetailZoom: void 0,
+    maxDetailZoom: undefined,
+    minDetailZoom: undefined,
     subdomains: "abc",
     zoomOffset: 0,
     zoomReverse: false
@@ -107,7 +107,7 @@ export default function vectorTileLayer(url, options) {
 
     self.onRemove = function onRemove(map) {
         m_map.off("zoomend", updateZoom);
-        m_map = void 0;
+        m_map = undefined;
         return m_super.onRemove.apply(self, arguments);
     };
 
@@ -204,11 +204,11 @@ export default function vectorTileLayer(url, options) {
     function clampZoom(zoom) {
         const {minDetailZoom, maxDetailZoom} = options;
 
-        if (void 0 !== minDetailZoom && zoom < minDetailZoom) {
+        if (undefined !== minDetailZoom && zoom < minDetailZoom) {
             return minDetailZoom;
         }
 
-        if (void 0 !== maxDetailZoom && maxDetailZoom < zoom) {
+        if (undefined !== maxDetailZoom && maxDetailZoom < zoom) {
             return maxDetailZoom;
         }
 

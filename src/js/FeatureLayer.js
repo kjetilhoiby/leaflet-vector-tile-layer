@@ -42,7 +42,6 @@ import {VectorTileFeature} from "@mapbox/vector-tile";
 
 export default function featureLayer(feature, layerName, rootGroup, pxPerExtent, options) {
     const self = new Layer(options);
-    const m_super = Object.getPrototypeOf(self);
 
     options = extend({}, options);
 
@@ -62,7 +61,7 @@ export default function featureLayer(feature, layerName, rootGroup, pxPerExtent,
         self.addInteractiveTarget(m_path);
     };
 
-    self.removeFrom = function removeFrom(map) {
+    self.removeFrom = function removeFrom() {
         self.removeInteractiveTarget(m_path);
         delete self._map;
     };

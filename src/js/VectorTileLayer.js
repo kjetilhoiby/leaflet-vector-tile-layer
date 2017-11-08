@@ -105,7 +105,7 @@ export default function vectorTileLayer(url, options) {
         return m_super.onAdd.apply(self, arguments);
     };
 
-    self.onRemove = function onRemove(map) {
+    self.onRemove = function onRemove() {
         m_map.off("zoomend", updateZoom);
         m_map = undefined;
         return m_super.onRemove.apply(self, arguments);

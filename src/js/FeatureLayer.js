@@ -135,7 +135,8 @@ export default function featureLayer(feature, layerName, rootGroup, pxPerExtent,
             (ring) => ring.map((p) => point(p).scaleBy(pxPerExtent))
         );
 
-        m_path.setAttribute("d",
+        m_path.setAttribute(
+            "d",
             SVG.pointsToPath(geometry, "Polygon" === m_type)
         );
 

@@ -87,8 +87,8 @@ export default function vectorTileLayer(url, options) {
         if (!tile) {
             return;
         }
-        tile.eachFeatureLayer((featureLayer) =>
-            self.removeFeatureLayer(featureLayer)
+        tile.eachFeatureLayer(
+            (featureLayer) => self.removeFeatureLayer(featureLayer)
         );
         delete m_featureTiles[id];
     });

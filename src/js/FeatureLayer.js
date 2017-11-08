@@ -37,8 +37,8 @@ import {
         point,
         Polygon,
         SVG,
-} from 'leaflet';
-import { VectorTileFeature } from '@mapbox/vector-tile';
+} from "leaflet";
+import { VectorTileFeature } from "@mapbox/vector-tile";
 
 export default function featureLayer(feature, layerName, rootGroup, pxPerExtent, options) {
         const self = new Layer(options);
@@ -72,72 +72,72 @@ export default function featureLayer(feature, layerName, rootGroup, pxPerExtent,
 
                 options = extend(
                         {},
-                        'Polygon' === m_type
+                        "Polygon" === m_type
                                 ? Polygon.prototype.options
                                 : Path.prototype.options,
                         options
                 );
 
                 if (options.stroke) {
-                        path.setAttribute('stroke', options.color);
-                        path.setAttribute('stroke-opacity', options.opacity);
-                        path.setAttribute('stroke-width', options.weight);
-                        path.setAttribute('stroke-linecap', options.lineCap);
-                        path.setAttribute('stroke-linejoin', options.lineJoin);
+                        path.setAttribute("stroke", options.color);
+                        path.setAttribute("stroke-opacity", options.opacity);
+                        path.setAttribute("stroke-width", options.weight);
+                        path.setAttribute("stroke-linecap", options.lineCap);
+                        path.setAttribute("stroke-linejoin", options.lineJoin);
 
                         if (options.dashArray) {
-                                path.setAttribute('stroke-dasharray', options.dashArray);
+                                path.setAttribute("stroke-dasharray", options.dashArray);
                         } else {
-                                path.removeAttribute('stroke-dasharray');
+                                path.removeAttribute("stroke-dasharray");
                         }
 
                         if (options.dashOffset) {
-                                path.setAttribute('stroke-dashoffset', options.dashOffset);
+                                path.setAttribute("stroke-dashoffset", options.dashOffset);
                         } else {
-                                path.removeAttribute('stroke-dashoffset');
+                                path.removeAttribute("stroke-dashoffset");
                         }
                 } else {
-                        path.setAttribute('stroke', 'none');
+                        path.setAttribute("stroke", "none");
                 }
 
                 if (options.fill) {
-                        path.setAttribute('fill', options.fillColor || options.color);
-                        path.setAttribute('fill-opacity', options.fillOpacity);
-                        path.setAttribute('fill-rule', options.fillRule || 'evenodd');
+                        path.setAttribute("fill", options.fillColor || options.color);
+                        path.setAttribute("fill-opacity", options.fillOpacity);
+                        path.setAttribute("fill-rule", options.fillRule || "evenodd");
                 } else {
-                        path.setAttribute('fill', 'none');
+                        path.setAttribute("fill", "none");
                 }
 
                 if (options.interactive) {
                         /*
-                         * Leaflet's 'interactive' class only applies to
+                         * Leaflet's "interactive" class only applies to
                          * renderers that are immediate descendants of a
                          * pane.
                          */
-                        path.setAttribute('pointer-events', 'auto');
-                        DomUtil.addClass(path, 'leaflet-interactive');
+                        path.setAttribute("pointer-events", "auto");
+                        DomUtil.addClass(path, "leaflet-interactive");
                 } else {
-                        DomUtil.removeClass(path, 'leaflet-interactive');
-                        path.removeAttribute('pointer-events');
+                        DomUtil.removeClass(path, "leaflet-interactive");
+                        path.removeAttribute("pointer-events");
                 }
 
                 return path;
         };
 
-        const m_path = SVG.create('path');
+        const m_path = SVG.create("path");
 
         const m_type = VectorTileFeature.types[feature.type];
         switch (m_type) {
-        case 'Point':
+        case "Point":
                 break;
-        case 'LineString':
-        case 'Polygon':
+        case "LineString":
+        case "Polygon":
                 const geometry = feature.loadGeometry().map(
                         ring => ring.map(p => point(p).scaleBy(pxPerExtent))
                 );
 
-                m_path.setAttribute('d',
-                        SVG.pointsToPath(geometry, 'Polygon' === m_type)
+                m_path.setAttribute("d",
+                        SVG.pointsToPath(geometry, "Polygon" === m_type)
                 );
 
                 if (options.className) {

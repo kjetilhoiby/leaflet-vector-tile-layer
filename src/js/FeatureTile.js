@@ -29,17 +29,17 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import featureLayer from './FeatureLayer.js';
-import { SVG } from 'leaflet';
+import featureLayer from "./FeatureLayer.js";
+import { SVG } from "leaflet";
 
 export default function featureTile(coords, layer) {
         const self = {};
         const m_tileSize = layer.getTileSize();
-        const m_svg = SVG.create('svg');
-        const m_rootGroup = SVG.create('g');
+        const m_svg = SVG.create("svg");
+        const m_rootGroup = SVG.create("g");
         const m_layers = [];
 
-        m_svg.setAttribute('viewBox', [0, 0, m_tileSize.x, m_tileSize.y].join(' '));
+        m_svg.setAttribute("viewBox", [0, 0, m_tileSize.x, m_tileSize.y].join(" "));
         m_svg.appendChild(m_rootGroup);
 
         function addFeature(feature, layerName, pxPerExtent) {

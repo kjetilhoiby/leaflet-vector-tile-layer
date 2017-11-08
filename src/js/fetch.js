@@ -29,12 +29,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-if ('function' !== typeof window.fetch) {
+if ("function" !== typeof window.fetch) {
         window.fetch = function fetch(url) {
                 const xhr = new XMLHttpRequest();
 
-                xhr.open('GET', url);
-                xhr.responseType = 'arraybuffer';
+                xhr.open("GET", url);
+                xhr.responseType = "arraybuffer";
 
                 return new Promise(resolve => {
                         xhr.onload = function onload() {

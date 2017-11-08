@@ -29,14 +29,14 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import featureTile from './FeatureTile.js';
-import './fetch.js';
-import { GridLayer, Util } from 'leaflet';
-import Pbf from 'pbf';
-import { VectorTile } from '@mapbox/vector-tile';
+import featureTile from "./FeatureTile.js";
+import "./fetch.js";
+import { GridLayer, Util } from "leaflet";
+import Pbf from "pbf";
+import { VectorTile } from "@mapbox/vector-tile";
 
 function err() {
-        return new Error(Array.prototype.join.call(arguments, ': '));
+        return new Error(Array.prototype.join.call(arguments, ": "));
 }
 
 function load(url) {
@@ -51,7 +51,7 @@ function load(url) {
 }
 
 function tileId(coords) {
-        return [ coords.x, coords.y, coords.z ].join('|');
+        return [ coords.x, coords.y, coords.z ].join("|");
 }
 
 const defaultOptions = {
@@ -59,7 +59,7 @@ const defaultOptions = {
         maxZoom: 18,
         maxDetailZoom: void 0,
         minDetailZoom: void 0,
-        subdomains: 'abc',
+        subdomains: "abc",
         zoomOffset: 0,
         zoomReverse: false,
 };
@@ -70,8 +70,8 @@ export default function vectorTileLayer(url, options) {
 
         options = Util.extend({}, defaultOptions, options);
 
-        if ('string' === typeof options.subdomains) {
-                options.subdomains = options.subdomains.split('');
+        if ("string" === typeof options.subdomains) {
+                options.subdomains = options.subdomains.split("");
         }
 
         // Compatibility with Leaflet.VectorGrid
@@ -80,7 +80,7 @@ export default function vectorTileLayer(url, options) {
         }
 
         const m_featureTiles = {};
-        self.on('tileunload', evt => {
+        self.on("tileunload", evt => {
                 const id = tileId(evt.coords);
                 const tile = m_featureTiles[id];
 
@@ -100,13 +100,13 @@ export default function vectorTileLayer(url, options) {
 
         self.onAdd = function onAdd(map) {
                 m_map = map;
-                m_map.on('zoomend', updateZoom);
+                m_map.on("zoomend", updateZoom);
                 updateZoom();
                 return m_super.onAdd.apply(self, arguments);
         };
 
         self.onRemove = function onRemove(map) {
-                m_map.off('zoomend', updateZoom);
+                m_map.off("zoomend", updateZoom);
                 m_map = void 0;
                 return m_super.onRemove.apply(self, arguments);
         };
@@ -176,7 +176,7 @@ export default function vectorTileLayer(url, options) {
         self.getFeatureStyle = function getFeatureStyle(feature, layerName) {
                 const style = options.style;
 
-                return 'function' === typeof style
+                return "function" === typeof style
                        ? style(feature, layerName, m_zoom)
                        : style;
         };

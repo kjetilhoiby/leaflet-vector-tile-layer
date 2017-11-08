@@ -29,6 +29,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+/*jslint browser*/
+
 if ("function" !== typeof window.fetch) {
     window.fetch = function fetch(url) {
         const xhr = new XMLHttpRequest();

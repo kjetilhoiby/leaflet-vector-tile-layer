@@ -114,8 +114,9 @@ export default function vectorTileLayer(url, options) {
 
     self.createTile = function createTile(coords, done) {
         const id = tileId(coords);
-        const tile = m_featureTiles[id] = featureTile(coords, self);
+        const tile = featureTile(coords, self);
 
+        m_featureTiles[id] = tile;
         load(self.getTileUrl(coords)).then(function (buffer) {
             tile.addVectorTile(new VectorTile(new Pbf(buffer)));
             done(null, tile);

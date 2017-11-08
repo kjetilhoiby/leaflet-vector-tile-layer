@@ -33,44 +33,44 @@ import featureLayer from "./FeatureLayer.js";
 import { SVG } from "leaflet";
 
 export default function featureTile(coords, layer) {
-        const self = {};
-        const m_tileSize = layer.getTileSize();
-        const m_svg = SVG.create("svg");
-        const m_rootGroup = SVG.create("g");
-        const m_layers = [];
+    const self = {};
+    const m_tileSize = layer.getTileSize();
+    const m_svg = SVG.create("svg");
+    const m_rootGroup = SVG.create("g");
+    const m_layers = [];
 
-        m_svg.setAttribute("viewBox", [0, 0, m_tileSize.x, m_tileSize.y].join(" "));
-        m_svg.appendChild(m_rootGroup);
+    m_svg.setAttribute("viewBox", [0, 0, m_tileSize.x, m_tileSize.y].join(" "));
+    m_svg.appendChild(m_rootGroup);
 
-        function addFeature(feature, layerName, pxPerExtent) {
-                const featureStyle = layer.getFeatureStyle(feature, layerName);
-                if (!featureStyle) {
-                        return;
-                }
-
-                const ftrLyr = featureLayer(feature, layerName, m_rootGroup, pxPerExtent, featureStyle);
-                m_layers.push(ftrLyr);
-                layer.addFeatureLayer(ftrLyr);
+    function addFeature(feature, layerName, pxPerExtent) {
+        const featureStyle = layer.getFeatureStyle(feature, layerName);
+        if (!featureStyle) {
+            return;
         }
 
-        self.addVectorTile = function addVectorTile(vectorTile) {
-                Object.keys(vectorTile.layers).forEach(layerName => {
-                        const layer = vectorTile.layers[layerName];
-                        const pxPerExtent = m_tileSize.divideBy(layer.extent);
+        const ftrLyr = featureLayer(feature, layerName, m_rootGroup, pxPerExtent, featureStyle);
+        m_layers.push(ftrLyr);
+        layer.addFeatureLayer(ftrLyr);
+    }
 
-                        for (let i = 0; i != layer.length; ++i) {
-                                const feature = layer.feature(i);
+    self.addVectorTile = function addVectorTile(vectorTile) {
+        Object.keys(vectorTile.layers).forEach(layerName => {
+            const layer = vectorTile.layers[layerName];
+            const pxPerExtent = m_tileSize.divideBy(layer.extent);
 
-                                addFeature(feature, layerName, pxPerExtent);
-                        }
-                });
+            for (let i = 0; i != layer.length; ++i) {
+                const feature = layer.feature(i);
 
-                return self;
-        };
-
-        self.eachFeatureLayer = func => m_layers.map(func);
-        self.domElement = () => m_svg;
-        self.coords = () => coords;
+                addFeature(feature, layerName, pxPerExtent);
+            }
+        });
 
         return self;
+    };
+
+    self.eachFeatureLayer = func => m_layers.map(func);
+    self.domElement = () => m_svg;
+    self.coords = () => coords;
+
+    return self;
 }

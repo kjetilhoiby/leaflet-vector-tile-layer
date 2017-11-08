@@ -30,22 +30,22 @@
  */
 
 if ("function" !== typeof window.fetch) {
-        window.fetch = function fetch(url) {
-                const xhr = new XMLHttpRequest();
+    window.fetch = function fetch(url) {
+        const xhr = new XMLHttpRequest();
 
-                xhr.open("GET", url);
-                xhr.responseType = "arraybuffer";
+        xhr.open("GET", url);
+        xhr.responseType = "arraybuffer";
 
-                return new Promise(resolve => {
-                        xhr.onload = function onload() {
-                                resolve({
-                                        ok: 200 === xhr.status,
-                                        status: xhr.status,
-                                        statusText: xhr.statusText,
-                                        arrayBuffer() { return xhr.response; },
-                                });
-                        };
-                        xhr.send();
+        return new Promise(resolve => {
+            xhr.onload = function onload() {
+                resolve({
+                    ok: 200 === xhr.status,
+                    status: xhr.status,
+                    statusText: xhr.statusText,
+                    arrayBuffer() { return xhr.response; },
                 });
-        };
+            };
+            xhr.send();
+        });
+    };
 }

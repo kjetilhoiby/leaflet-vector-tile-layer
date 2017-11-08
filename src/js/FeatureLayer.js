@@ -30,124 +30,124 @@
  */
 
 import {
-        DomUtil,
-        extend,
-        Layer,
-        Path,
-        point,
-        Polygon,
-        SVG,
+    DomUtil,
+    extend,
+    Layer,
+    Path,
+    point,
+    Polygon,
+    SVG,
 } from "leaflet";
 import { VectorTileFeature } from "@mapbox/vector-tile";
 
 export default function featureLayer(feature, layerName, rootGroup, pxPerExtent, options) {
-        const self = new Layer(options);
-        const m_super = Object.getPrototypeOf(self);
+    const self = new Layer(options);
+    const m_super = Object.getPrototypeOf(self);
 
-        options = extend({}, options)
+    options = extend({}, options)
 
-        self.feature = feature;
-        self.layerName = layerName;
+    self.feature = feature;
+    self.layerName = layerName;
 
-        // Compatibility with Leaflet.VectorGrid
-        self.properties = feature.properties;
+    // Compatibility with Leaflet.VectorGrid
+    self.properties = feature.properties;
 
-        /*
-         * FeatureLayers only serve as event targets and are never actually
-         * "added" to the map, so we override the base class's addTo.
-         */
-        self.addTo = function addTo(map) {
-                // Required by addInteractiveTarget.
-                self._map = map;
-                self.addInteractiveTarget(m_path);
-        };
+    /*
+     * FeatureLayers only serve as event targets and are never actually
+     * "added" to the map, so we override the base class's addTo.
+     */
+    self.addTo = function addTo(map) {
+        // Required by addInteractiveTarget.
+        self._map = map;
+        self.addInteractiveTarget(m_path);
+    };
 
-        self.removeFrom = function removeFrom(map) {
-                self.removeInteractiveTarget(m_path);
-                delete self._map;
-        };
+    self.removeFrom = function removeFrom(map) {
+        self.removeInteractiveTarget(m_path);
+        delete self._map;
+    };
 
-        self.setStyle = function setStyle(options) {
-                const path = m_path;
+    self.setStyle = function setStyle(options) {
+        const path = m_path;
 
-                options = extend(
-                        {},
-                        "Polygon" === m_type
-                                ? Polygon.prototype.options
-                                : Path.prototype.options,
-                        options
-                );
+        options = extend(
+            {},
+            "Polygon" === m_type
+                ? Polygon.prototype.options
+                : Path.prototype.options,
+            options
+        );
 
-                if (options.stroke) {
-                        path.setAttribute("stroke", options.color);
-                        path.setAttribute("stroke-opacity", options.opacity);
-                        path.setAttribute("stroke-width", options.weight);
-                        path.setAttribute("stroke-linecap", options.lineCap);
-                        path.setAttribute("stroke-linejoin", options.lineJoin);
+        if (options.stroke) {
+            path.setAttribute("stroke", options.color);
+            path.setAttribute("stroke-opacity", options.opacity);
+            path.setAttribute("stroke-width", options.weight);
+            path.setAttribute("stroke-linecap", options.lineCap);
+            path.setAttribute("stroke-linejoin", options.lineJoin);
 
-                        if (options.dashArray) {
-                                path.setAttribute("stroke-dasharray", options.dashArray);
-                        } else {
-                                path.removeAttribute("stroke-dasharray");
-                        }
+            if (options.dashArray) {
+                path.setAttribute("stroke-dasharray", options.dashArray);
+            } else {
+                path.removeAttribute("stroke-dasharray");
+            }
 
-                        if (options.dashOffset) {
-                                path.setAttribute("stroke-dashoffset", options.dashOffset);
-                        } else {
-                                path.removeAttribute("stroke-dashoffset");
-                        }
-                } else {
-                        path.setAttribute("stroke", "none");
-                }
-
-                if (options.fill) {
-                        path.setAttribute("fill", options.fillColor || options.color);
-                        path.setAttribute("fill-opacity", options.fillOpacity);
-                        path.setAttribute("fill-rule", options.fillRule || "evenodd");
-                } else {
-                        path.setAttribute("fill", "none");
-                }
-
-                if (options.interactive) {
-                        /*
-                         * Leaflet's "interactive" class only applies to
-                         * renderers that are immediate descendants of a
-                         * pane.
-                         */
-                        path.setAttribute("pointer-events", "auto");
-                        DomUtil.addClass(path, "leaflet-interactive");
-                } else {
-                        DomUtil.removeClass(path, "leaflet-interactive");
-                        path.removeAttribute("pointer-events");
-                }
-
-                return path;
-        };
-
-        const m_path = SVG.create("path");
-
-        const m_type = VectorTileFeature.types[feature.type];
-        switch (m_type) {
-        case "Point":
-                break;
-        case "LineString":
-        case "Polygon":
-                const geometry = feature.loadGeometry().map(
-                        ring => ring.map(p => point(p).scaleBy(pxPerExtent))
-                );
-
-                m_path.setAttribute("d",
-                        SVG.pointsToPath(geometry, "Polygon" === m_type)
-                );
-
-                if (options.className) {
-                        DomUtil.addClass(m_path, options.className);
-                }
-                self.setStyle(options);
-
-                rootGroup.appendChild(m_path);
-                break;
+            if (options.dashOffset) {
+                path.setAttribute("stroke-dashoffset", options.dashOffset);
+            } else {
+                path.removeAttribute("stroke-dashoffset");
+            }
+        } else {
+            path.setAttribute("stroke", "none");
         }
 
-        return self;
+        if (options.fill) {
+            path.setAttribute("fill", options.fillColor || options.color);
+            path.setAttribute("fill-opacity", options.fillOpacity);
+            path.setAttribute("fill-rule", options.fillRule || "evenodd");
+        } else {
+            path.setAttribute("fill", "none");
+        }
+
+        if (options.interactive) {
+            /*
+             * Leaflet's "interactive" class only applies to
+             * renderers that are immediate descendants of a
+             * pane.
+             */
+            path.setAttribute("pointer-events", "auto");
+            DomUtil.addClass(path, "leaflet-interactive");
+        } else {
+            DomUtil.removeClass(path, "leaflet-interactive");
+            path.removeAttribute("pointer-events");
+        }
+
+        return path;
+    };
+
+    const m_path = SVG.create("path");
+
+    const m_type = VectorTileFeature.types[feature.type];
+    switch (m_type) {
+    case "Point":
+        break;
+    case "LineString":
+    case "Polygon":
+        const geometry = feature.loadGeometry().map(
+            ring => ring.map(p => point(p).scaleBy(pxPerExtent))
+        );
+
+        m_path.setAttribute("d",
+            SVG.pointsToPath(geometry, "Polygon" === m_type)
+        );
+
+        if (options.className) {
+            DomUtil.addClass(m_path, options.className);
+        }
+        self.setStyle(options);
+
+        rootGroup.appendChild(m_path);
+        break;
+    }
+
+    return self;
 }

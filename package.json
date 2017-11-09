@@ -13,7 +13,7 @@
   "license": "BSD-3-Clause",
   "author": "Joachim Kuebart <joachim.kuebart@gmail.com>",
   "files": [
-    "CONTRIBUTORS",
+    "AUTHORS",
     "dist",
     "js"
   ],

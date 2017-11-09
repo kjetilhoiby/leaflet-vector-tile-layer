@@ -10,7 +10,7 @@ export default {
     globals: {
         "leaflet": "L"
     },
-    input: "js/VectorTileLayer.js",
+    input: "src/js/VectorTileLayer.js",
     name: "VectorTileLayer",
     output: {
         file: "dist/VectorTileLayer.js",

@@ -15,10 +15,10 @@
   "files": [
     "AUTHORS",
     "dist",
-    "js"
+    "src/js"
   ],
   "main": "dist/VectorTileLayer.js",
-  "module": "js/VectorTileLayer.js",
+  "module": "src/js/VectorTileLayer.js",
   "repository": {
     "type": "git",
     "url": "https://gitlab.com/jkuebart/Leaflet.VectorTileLayer.git"

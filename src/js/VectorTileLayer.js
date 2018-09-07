@@ -79,6 +79,32 @@ const defaultOptions = {
 export default function vectorTileLayer(url, options) {
     const self = new GridLayer(options);
     const m_super = Object.getPrototypeOf(self);
+    const m_featureStyle = {};
+
+    function legacyStyle(feature, layerName, zoom) {
+        const {getFeatureId, vectorTileLayerStyles} = options;
+
+        let layerStyle = vectorTileLayerStyles[layerName];
+        if (getFeatureId) {
+            const fId = getFeatureId(feature);
+            if (m_featureStyle[fId]) {
+                layerStyle = m_featureStyle[fId];
+            }
+        }
+
+        if ("function" === typeof layerStyle) {
+            layerStyle = layerStyle(feature.properties, zoom);
+        }
+
+        if (Array.isArray(layerStyle)) {
+            if (!layerStyle.length) {
+                return;
+            }
+            layerStyle = layerStyle[0];
+        }
+
+        return layerStyle;
+    }
 
     options = Util.extend({}, defaultOptions, options);
 
@@ -137,6 +163,35 @@ export default function vectorTileLayer(url, options) {
         return tile.domElement();
     };
 
+    function getSubdomain(tilePoint) {
+        const index = Math.abs(tilePoint.x + tilePoint.y) % options.subdomains.length;
+        return options.subdomains[index];
+    }
+
+    function clampZoom(zoom) {
+        const {minDetailZoom, maxDetailZoom} = options;
+
+        if (undefined !== minDetailZoom && zoom < minDetailZoom) {
+            return minDetailZoom;
+        }
+
+        if (undefined !== maxDetailZoom && maxDetailZoom < zoom) {
+            return maxDetailZoom;
+        }
+
+        return zoom;
+    }
+
+    function getZoomForUrl(zoom) {
+        const {maxZoom, zoomReverse, zoomOffset} = options;
+
+        if (zoomReverse) {
+            zoom = maxZoom - zoom;
+        }
+
+        return clampZoom(zoom + zoomOffset);
+    }
+
     self.getTileUrl = function getTileUrl(coords) {
         const data = {
             s: getSubdomain(coords),
@@ -149,6 +204,12 @@ export default function vectorTileLayer(url, options) {
             Util.extend(data, options)
         );
     };
+
+    function eachFeatureLayer(func) {
+        Object.keys(m_featureTiles).forEach(
+            (tileId) => m_featureTiles[tileId].eachFeatureLayer(func)
+        );
+    }
 
     self.setStyle = function setStyle(style) {
         options.style = style;
@@ -164,7 +225,6 @@ export default function vectorTileLayer(url, options) {
     };
 
     // Compatibilty with Leaflet.VectorGrid
-    const m_featureStyle = {};
     self.setFeatureStyle = function setFeatureStyle(id, style) {
         m_featureStyle[id] = style;
         self.setStyle(options.style);
@@ -208,66 +268,6 @@ export default function vectorTileLayer(url, options) {
 
         return self;
     };
-
-    function eachFeatureLayer(func) {
-        Object.keys(m_featureTiles).forEach(
-            (tileId) => m_featureTiles[tileId].eachFeatureLayer(func)
-        );
-    }
-
-    function clampZoom(zoom) {
-        const {minDetailZoom, maxDetailZoom} = options;
-
-        if (undefined !== minDetailZoom && zoom < minDetailZoom) {
-            return minDetailZoom;
-        }
-
-        if (undefined !== maxDetailZoom && maxDetailZoom < zoom) {
-            return maxDetailZoom;
-        }
-
-        return zoom;
-    }
-
-    function getZoomForUrl(zoom) {
-        const {maxZoom, zoomReverse, zoomOffset} = options;
-
-        if (zoomReverse) {
-            zoom = maxZoom - zoom;
-        }
-
-        return clampZoom(zoom + zoomOffset);
-    }
-
-    function getSubdomain(tilePoint) {
-        const index = Math.abs(tilePoint.x + tilePoint.y) % options.subdomains.length;
-        return options.subdomains[index];
-    }
-
-    function legacyStyle(feature, layerName, zoom) {
-        const {getFeatureId, vectorTileLayerStyles} = options;
-
-        let layerStyle = vectorTileLayerStyles[layerName];
-        if (getFeatureId) {
-            const fId = getFeatureId(feature);
-            if (m_featureStyle[fId]) {
-                layerStyle = m_featureStyle[fId];
-            }
-        }
-
-        if ("function" === typeof layerStyle) {
-            layerStyle = layerStyle(feature.properties, zoom);
-        }
-
-        if (Array.isArray(layerStyle)) {
-            if (!layerStyle.length) {
-                return;
-            }
-            layerStyle = layerStyle[0];
-        }
-
-        return layerStyle;
-    }
 
     return self;
 };

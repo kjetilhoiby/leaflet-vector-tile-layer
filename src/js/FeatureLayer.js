@@ -51,6 +51,8 @@ import {VectorTileFeature} from "@mapbox/vector-tile";
 
 export default function featureLayer(feature, layerName, rootGroup, pxPerExtent, options) {
     const self = new Layer(options);
+    const m_path = SVG.create("path");
+    const m_type = VectorTileFeature.types[feature.type];
 
     options = extend({}, options);
 
@@ -132,9 +134,6 @@ export default function featureLayer(feature, layerName, rootGroup, pxPerExtent,
         return path;
     };
 
-    const m_path = SVG.create("path");
-
-    const m_type = VectorTileFeature.types[feature.type];
     switch (m_type) {
     case "Point":
         break;

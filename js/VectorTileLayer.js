@@ -115,10 +115,12 @@ export default function vectorTileLayer(url, options) {
                 const id = tileId(coords);
                 const tile = m_featureTiles[id] = featureTile(coords, self);
 
-                load(self.getTileUrl(coords)).then(buffer => {
-                        tile.addVectorTile(new VectorTile(new Pbf(buffer)));
-                        done(null, tile);
-                });
+                load(self.getTileUrl(coords))
+                  .catch(e => done(e, tile))
+                  .then(buffer => {
+                    tile.addVectorTile(new VectorTile(new Pbf(buffer)));
+                    done(null, tile);
+                  });
 
                 return tile.domElement();
         };

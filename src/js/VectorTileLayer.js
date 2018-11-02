@@ -164,7 +164,8 @@ export default Object.freeze(function vectorTileLayer(url, options) {
     };
 
     function getSubdomain(tilePoint) {
-        const index = Math.abs(tilePoint.x + tilePoint.y) % options.subdomains.length;
+        const index =
+                Math.abs(tilePoint.x + tilePoint.y) % options.subdomains.length;
         return options.subdomains[index];
     }
 
@@ -244,7 +245,9 @@ export default Object.freeze(function vectorTileLayer(url, options) {
         const tileSize = m_super.getTileSize.call(self);
         const zoom = self._tileZoom;
 
-        return tileSize.divideBy(m_map.getZoomScale(clampZoom(zoom), zoom)).round();
+        return tileSize.divideBy(
+            m_map.getZoomScale(clampZoom(zoom), zoom)
+        ).round();
     };
 
     self.getFeatureStyle = function getFeatureStyle(feature, layerName) {

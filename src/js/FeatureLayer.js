@@ -49,7 +49,7 @@ import {
 } from "leaflet";
 import {VectorTileFeature} from "@mapbox/vector-tile";
 
-export default Object.freeze(function featureLayer(feature, layerName, rootGroup, pxPerExtent, options) {
+function featureLayer(feature, layerName, rootGroup, pxPerExtent, options) {
     const self = new Layer(options);
     const m_path = SVG.create("path");
     const m_type = VectorTileFeature.types[feature.type];
@@ -159,4 +159,6 @@ export default Object.freeze(function featureLayer(feature, layerName, rootGroup
     }
 
     return self;
-});
+}
+
+export default Object.freeze(featureLayer);

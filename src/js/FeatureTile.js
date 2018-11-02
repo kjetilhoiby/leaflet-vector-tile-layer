@@ -55,7 +55,13 @@ export default Object.freeze(function featureTile(coords, layer) {
             return;
         }
 
-        const ftrLyr = featureLayer(feature, layerName, m_rootGroup, pxPerExtent, featureStyle);
+        const ftrLyr = featureLayer(
+            feature,
+            layerName,
+            m_rootGroup,
+            pxPerExtent,
+            featureStyle
+        );
         m_layers.push(ftrLyr);
         layer.addFeatureLayer(ftrLyr);
     }

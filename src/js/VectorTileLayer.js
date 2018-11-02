@@ -253,9 +253,11 @@ export default Object.freeze(function vectorTileLayer(url, options) {
     self.getFeatureStyle = function getFeatureStyle(feature, layerName) {
         const style = options.style;
 
-        return "function" === typeof style
+        return (
+            "function" === typeof style
             ? style(feature, layerName, m_zoom)
-            : style;
+            : style
+        );
     };
 
     self.addFeatureLayer = function addFeatureLayer(featureLayer) {

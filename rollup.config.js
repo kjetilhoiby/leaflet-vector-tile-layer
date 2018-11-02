@@ -3,7 +3,7 @@ import commonJs from "rollup-plugin-commonjs";
 import nodeResolve from "rollup-plugin-node-resolve";
 import {uglify} from "rollup-plugin-uglify";
 
-export default {
+export default Object.freeze({
     external: [
         "leaflet"
     ],
@@ -23,4 +23,4 @@ export default {
         nodeResolve(),
         uglify()
     ]
-};
+});

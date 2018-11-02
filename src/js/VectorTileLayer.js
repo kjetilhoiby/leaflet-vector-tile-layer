@@ -32,12 +32,12 @@
 /*property
     _tileZoom, abs, addEventParent, addFeatureLayer, addTo, addVectorTile,
     arrayBuffer, call, coords, createTile, divideBy, domElement,
-    eachFeatureLayer, extend, feature, forEach, getFeatureId, getFeatureStyle,
-    getPrototypeOf, getTileSize, getTileUrl, getZoom, getZoomScale, isArray,
-    join, keys, layerName, length, maxDetailZoom, maxZoom, minDetailZoom,
-    minZoom, off, ok, on, onAdd, onRemove, properties, removeEventParent,
-    removeFeatureLayer, removeFrom, resetFeatureStyle, round, s,
-    setFeatureStyle, setStyle, split, status, statusText, style, subdomains,
+    eachFeatureLayer, extend, feature, forEach, freeze, getFeatureId,
+    getFeatureStyle, getPrototypeOf, getTileSize, getTileUrl, getZoom,
+    getZoomScale, isArray, join, keys, layerName, length, maxDetailZoom,
+    maxZoom, minDetailZoom, minZoom, off, ok, on, onAdd, onRemove, properties,
+    removeEventParent, removeFeatureLayer, removeFrom, resetFeatureStyle, round,
+    s, setFeatureStyle, setStyle, split, status, statusText, style, subdomains,
     template, then, vectorTileLayerStyles, x, y, z, zoomOffset, zoomReverse
 */
 
@@ -76,7 +76,7 @@ const defaultOptions = {
     zoomReverse: false
 };
 
-export default function vectorTileLayer(url, options) {
+export default Object.freeze(function vectorTileLayer(url, options) {
     const self = new GridLayer(options);
     const m_super = Object.getPrototypeOf(self);
     const m_featureStyle = {};
@@ -270,4 +270,4 @@ export default function vectorTileLayer(url, options) {
     };
 
     return self;
-};
+});

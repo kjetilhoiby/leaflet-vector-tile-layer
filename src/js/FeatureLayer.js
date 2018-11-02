@@ -32,8 +32,8 @@
 /*property
     _map, addClass, addInteractiveTarget, addTo, appendChild, className, color,
     create, dashArray, dashOffset, feature, fill, fillColor, fillOpacity,
-    fillRule, interactive, layerName, lineCap, lineJoin, loadGeometry, map,
-    opacity, options, pointsToPath, properties, prototype, removeAttribute,
+    fillRule, freeze, interactive, layerName, lineCap, lineJoin, loadGeometry,
+    map, opacity, options, pointsToPath, properties, prototype, removeAttribute,
     removeClass, removeFrom, removeInteractiveTarget, scaleBy, setAttribute,
     setStyle, stroke, type, types, weight
 */
@@ -49,7 +49,7 @@ import {
 } from "leaflet";
 import {VectorTileFeature} from "@mapbox/vector-tile";
 
-export default function featureLayer(feature, layerName, rootGroup, pxPerExtent, options) {
+export default Object.freeze(function featureLayer(feature, layerName, rootGroup, pxPerExtent, options) {
     const self = new Layer(options);
     const m_path = SVG.create("path");
     const m_type = VectorTileFeature.types[feature.type];
@@ -159,4 +159,4 @@ export default function featureLayer(feature, layerName, rootGroup, pxPerExtent,
     }
 
     return self;
-};
+});

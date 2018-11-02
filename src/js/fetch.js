@@ -60,4 +60,4 @@ if ("function" === typeof window.fetch) {
     };
 }
 
-export default fetch;
+export default Object.freeze(fetch);

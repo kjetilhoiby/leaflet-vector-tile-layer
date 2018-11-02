@@ -39,7 +39,7 @@
 import featureLayer from "./FeatureLayer.js";
 import {SVG} from "leaflet";
 
-export default function featureTile(coords, layer) {
+export default Object.freeze(function featureTile(coords, layer) {
     const self = {};
     const m_tileSize = layer.getTileSize();
     const m_svg = SVG.create("svg");
@@ -80,4 +80,4 @@ export default function featureTile(coords, layer) {
     self.coords = () => coords;
 
     return self;
-};
+});

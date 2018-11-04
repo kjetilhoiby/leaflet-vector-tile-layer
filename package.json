@@ -18,20 +18,22 @@
     "README.md",
     "dist/VectorTileLayer.js",
     "dist/VectorTileLayer.js.map",
-    "src/js/FeatureLayer.js",
-    "src/js/FeatureTile.js",
-    "src/js/VectorTileLayer.js",
-    "src/js/fetch.js",
+    "dist/VectorTileLayer.min.js",
+    "dist/VectorTileLayer.min.js.map",
+    "dist/VectorTileLayer.umd.js",
+    "dist/VectorTileLayer.umd.js.map",
+    "dist/VectorTileLayer.umd.min.js",
+    "dist/VectorTileLayer.umd.min.js.map",
     "package.json"
   ],
-  "main": "dist/VectorTileLayer.js",
-  "module": "src/js/VectorTileLayer.js",
+  "main": "dist/VectorTileLayer.umd.min.js",
+  "module": "dist/VectorTileLayer.js",
   "repository": {
     "type": "git",
     "url": "https://gitlab.com/jkuebart/Leaflet.VectorTileLayer.git"
   },
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup --config",
     "clean": "rm -fr dist node_modules package-lock.json",
     "lint": "jslint rollup.config.js package.json src/js/*",
     "prepare": "npm run build",
@@ -43,9 +45,9 @@
     "pbf": "*",
     "rollup": "*",
     "rollup-plugin-buble": "*",
+    "rollup-plugin-butternut": "*",
     "rollup-plugin-commonjs": "*",
-    "rollup-plugin-node-resolve": "*",
-    "rollup-plugin-uglify": "*"
+    "rollup-plugin-node-resolve": "*"
   },
   "peerDependencies": {
     "leaflet": "^1.0.0"

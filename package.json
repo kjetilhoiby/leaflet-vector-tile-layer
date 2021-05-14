@@ -41,13 +41,13 @@
   },
   "devDependencies": {
     "@mapbox/vector-tile": "*",
+    "@rollup/plugin-buble": "*",
+    "@rollup/plugin-commonjs": "*",
+    "@rollup/plugin-node-resolve": "*",
     "jslint-cli": "*",
     "pbf": "*",
     "rollup": "*",
-    "rollup-plugin-buble": "*",
-    "rollup-plugin-butternut": "*",
-    "rollup-plugin-commonjs": "*",
-    "rollup-plugin-node-resolve": "*"
+    "rollup-plugin-terser": "*"
   },
   "peerDependencies": {
     "leaflet": "^1.0.0"

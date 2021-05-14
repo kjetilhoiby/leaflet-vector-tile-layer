@@ -35,10 +35,10 @@
     sourcemap, substring
 */
 
-import buble from "rollup-plugin-buble";
-import butternut from "rollup-plugin-butternut";
-import commonjs from "rollup-plugin-commonjs";
-import nodeResolve from "rollup-plugin-node-resolve";
+import buble from "@rollup/plugin-buble";
+import commonjs from "@rollup/plugin-commonjs";
+import nodeResolve from "@rollup/plugin-node-resolve";
+import {terser} from "rollup-plugin-terser";
 
 let outputs = [
     {
@@ -117,7 +117,7 @@ const formats = [
                     output.output,
                     {file: withTag(output.output.file, "min")}
                 ),
-                plugins: output.plugins.concat([butternut()])
+                plugins: output.plugins.concat([terser()])
             }
         )
     ]

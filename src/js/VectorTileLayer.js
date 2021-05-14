@@ -158,6 +158,8 @@ export default Object.freeze(function vectorTileLayer(url, options) {
         load(self.getTileUrl(coords)).then(function (buffer) {
             tile.addVectorTile(new VectorTile(new Pbf(buffer)));
             done(null, tile);
+        }, function (exc) {
+            done(exc, tile);
         });
 
         return tile.domElement();

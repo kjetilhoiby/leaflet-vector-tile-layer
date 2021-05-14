@@ -82,9 +82,11 @@ function featureLayer(feature, layerName, rootGroup, pxPerExtent, options) {
 
         options = extend(
             {},
-            "Polygon" === m_type
-            ? Polygon.prototype.options
-            : Path.prototype.options,
+            (
+                "Polygon" === m_type
+                ? Polygon.prototype.options
+                : Path.prototype.options
+            ),
             options
         );
 

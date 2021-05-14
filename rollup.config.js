@@ -61,8 +61,10 @@ let outputs = [
 /**
  * Clone an object and add the given properties.
  */
-const extend = (object, properties) =>
-        Object.assign(Object.create(object), properties);
+const extend = (object, properties) => Object.assign(
+    Object.create(object),
+    properties
+);
 
 /**
  * Flatten one level of arrays.
@@ -74,9 +76,10 @@ const flatten = (arrays) => Array.prototype.concat.apply([], arrays);
  */
 function withTag(filename, tag) {
     const extensionIndex = 1 + filename.lastIndexOf(".");
-    return filename.substring(0, extensionIndex) +
-            `${tag}.` +
-            filename.substring(extensionIndex);
+    return (
+        filename.substring(0, extensionIndex) +
+        `${tag}.` + filename.substring(extensionIndex)
+    );
 }
 
 const formats = [

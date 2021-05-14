@@ -164,8 +164,10 @@ export default Object.freeze(function vectorTileLayer(url, options) {
     };
 
     function getSubdomain(tilePoint) {
-        const index =
-                Math.abs(tilePoint.x + tilePoint.y) % options.subdomains.length;
+        const index = (
+            Math.abs(tilePoint.x + tilePoint.y) %
+            options.subdomains.length
+        );
         return options.subdomains[index];
     }
 

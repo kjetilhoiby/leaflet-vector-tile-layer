@@ -80,7 +80,7 @@ const options = {
         style, // default undefined
 
         // This works like the same option for `Leaflet.VectorGrid`.
-        vectorTileLayerStyle, // default undefined
+        vectorTileLayerStyles, // default undefined
 };
 
 const layer = vectorTileLayer(url, options);

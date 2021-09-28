@@ -66,14 +66,17 @@ export default Object.freeze(function featureTile(coords, layer) {
         layer.addFeatureLayer(ftrLyr);
     }
 
-    self.addVectorTile = function addVectorTile(vectorTile) {
+    self.addVectorTile = function addVectorTile(vectorTile, filter) {
         Object.keys(vectorTile.layers).forEach(function (layerName) {
             const tileLayer = vectorTile.layers[layerName];
             const pxPerExtent = m_tileSize.divideBy(tileLayer.extent);
 
             let i = 0;
             while (i !== tileLayer.length) {
-                addFeature(tileLayer.feature(i), layerName, pxPerExtent);
+                const feature = tileLayer.feature(i);
+                if (!(filter instanceof Function) || filter(feature.properties)) {
+                    addFeature(feature, layerName, pxPerExtent);
+                }
                 i += 1;
             }
         });

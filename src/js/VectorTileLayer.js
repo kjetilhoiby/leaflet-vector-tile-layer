@@ -73,7 +73,8 @@ const defaultOptions = {
     minDetailZoom: undefined,
     subdomains: "abc",
     zoomOffset: 0,
-    zoomReverse: false
+    zoomReverse: false,
+    filter: function () { return true }
 };
 
 export default Object.freeze(function vectorTileLayer(url, options) {
@@ -156,7 +157,7 @@ export default Object.freeze(function vectorTileLayer(url, options) {
 
         m_featureTiles[id] = tile;
         load(self.getTileUrl(coords)).then(function (buffer) {
-            tile.addVectorTile(new VectorTile(new Pbf(buffer)));
+            tile.addVectorTile(new VectorTile(new Pbf(buffer)), options.filter);
             done(null, tile);
         }, function (exc) {
             done(exc, tile);

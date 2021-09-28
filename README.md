@@ -81,6 +81,10 @@ const options = {
 
         // This works like the same option for `Leaflet.VectorGrid`.
         vectorTileLayerStyles, // default undefined
+
+        // A Function that will be used to decide whether to include a feature
+        // or not. The default is to include all features
+        filter: function(properties) { return true; }
 };
 
 const layer = vectorTileLayer(url, options);

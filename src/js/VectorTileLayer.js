@@ -32,7 +32,7 @@
 /*property
     _tileZoom, abs, addEventParent, addFeatureLayer, addTo, addVectorTile,
     arrayBuffer, call, coords, createTile, divideBy, domElement,
-    eachFeatureLayer, extend, feature, forEach, freeze, getFeatureId,
+    eachFeatureLayer, extend, feature, filter, forEach, freeze, getFeatureId,
     getFeatureStyle, getPrototypeOf, getTileSize, getTileUrl, getZoom,
     getZoomScale, isArray, join, keys, layerName, length, maxDetailZoom,
     maxZoom, minDetailZoom, minZoom, off, ok, on, onAdd, onRemove, properties,
@@ -67,7 +67,7 @@ function tileId(coords) {
 }
 
 const defaultOptions = {
-    filter: () => { return true },
+    filter: undefined,
     minZoom: 0,
     maxZoom: 18,
     maxDetailZoom: undefined,
@@ -153,7 +153,7 @@ export default Object.freeze(function vectorTileLayer(url, options) {
 
     self.createTile = function createTile(coords, done) {
         const id = tileId(coords);
-        const tile = featureTile(coords, self, options.filter);
+        const tile = featureTile(coords, self);
 
         m_featureTiles[id] = tile;
         load(self.getTileUrl(coords)).then(function (buffer) {
@@ -256,6 +256,10 @@ export default Object.freeze(function vectorTileLayer(url, options) {
     };
 
     self.getFeatureStyle = function getFeatureStyle(feature, layerName) {
+        if (options.filter && !options.filter(feature, layerName, m_zoom)) {
+            return;
+        }
+
         const style = options.style;
 
         return (

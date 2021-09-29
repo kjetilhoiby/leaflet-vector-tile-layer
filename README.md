@@ -69,18 +69,20 @@ Additionally, the following options are provided:
 ```js
 const url = 'https://{s}.example.com/tiles/{z}/{x}/{y}.pbf';
 const options = {
-        // A Function that will be used to decide whether to include a feature
-        // or not. The default is to include all features
-        filter: (properties) => { return true; }
+        // A function that will be used to decide whether to include a
+        // feature or not. If specified, it will be passed the vector-tile
+        // feature, the layer name and the zoom level. The default is to
+        // include all features.
+        filter, // default undefined
 
         // Specify zoom range in which tiles are loaded. Tiles will be
         // rendered from the same data for Zoom levels outside the range.
         minDetailZoom, // default undefined
         maxDetailZoom, // default undefined
 
-        // Styling options for L.Polyline or L.Polygon. If it is a function, it
-        // will be passed the vector-tile feature and the layer name as
-        // parameters.
+        // Styling options for L.Polyline or L.Polygon. If it is a
+        // function, it will be passed the vector-tile feature, the layer
+        // name and the zoom level as parameters.
         style, // default undefined
 
         // This works like the same option for `Leaflet.VectorGrid`.

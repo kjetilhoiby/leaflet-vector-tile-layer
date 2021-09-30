@@ -69,6 +69,10 @@ Additionally, the following options are provided:
 ```js
 const url = 'https://{s}.example.com/tiles/{z}/{x}/{y}.pbf';
 const options = {
+        // A Function that will be used to decide whether to include a feature
+        // or not. The default is to include all features
+        filter: (properties) => { return true; }
+
         // Specify zoom range in which tiles are loaded. Tiles will be
         // rendered from the same data for Zoom levels outside the range.
         minDetailZoom, // default undefined
@@ -81,10 +85,6 @@ const options = {
 
         // This works like the same option for `Leaflet.VectorGrid`.
         vectorTileLayerStyles, // default undefined
-
-        // A Function that will be used to decide whether to include a feature
-        // or not. The default is to include all features
-        filter: function(properties) { return true; }
 };
 
 const layer = vectorTileLayer(url, options);

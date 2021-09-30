@@ -67,14 +67,14 @@ function tileId(coords) {
 }
 
 const defaultOptions = {
+    filter: () => { return true },
     minZoom: 0,
     maxZoom: 18,
     maxDetailZoom: undefined,
     minDetailZoom: undefined,
     subdomains: "abc",
     zoomOffset: 0,
-    zoomReverse: false,
-    filter: function () { return true }
+    zoomReverse: false
 };
 
 export default Object.freeze(function vectorTileLayer(url, options) {
@@ -153,11 +153,11 @@ export default Object.freeze(function vectorTileLayer(url, options) {
 
     self.createTile = function createTile(coords, done) {
         const id = tileId(coords);
-        const tile = featureTile(coords, self);
+        const tile = featureTile(coords, self, options.filter);
 
         m_featureTiles[id] = tile;
         load(self.getTileUrl(coords)).then(function (buffer) {
-            tile.addVectorTile(new VectorTile(new Pbf(buffer)), options.filter);
+            tile.addVectorTile(new VectorTile(new Pbf(buffer)));
             done(null, tile);
         }, function (exc) {
             done(exc, tile);

@@ -81,7 +81,7 @@ export default Object.freeze(function featureTile(coords, layer) {
         return self;
     };
 
-    self.eachFeatureLayer = (func) => m_layers.map(func);
+    self.eachFeatureLayer = (f) => m_layers.map((...args) => f(...args, self));
     self.domElement = () => m_svg;
     self.coords = () => coords;
 

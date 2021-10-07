@@ -30,15 +30,16 @@
  */
 
 /*property
-    _tileZoom, abs, addEventParent, addFeatureLayer, addTo, addVectorTile,
-    arrayBuffer, call, coords, createTile, divideBy, domElement,
-    eachFeatureLayer, extend, feature, forEach, freeze, getFeatureId,
-    getFeatureStyle, getPrototypeOf, getTileSize, getTileUrl, getZoom,
-    getZoomScale, isArray, join, keys, layerName, length, maxDetailZoom,
-    maxZoom, minDetailZoom, minZoom, off, ok, on, onAdd, onRemove, properties,
-    removeEventParent, removeFeatureLayer, removeFrom, resetFeatureStyle, round,
-    s, setFeatureStyle, setStyle, split, status, statusText, style, subdomains,
-    template, then, vectorTileLayerStyles, x, y, z, zoomOffset, zoomReverse
+    _globalTileRange, _tileZoom, abs, addEventParent, addFeatureLayer, addTo,
+    addVectorTile, arrayBuffer, call, coords, createTile, crs, divideBy,
+    domElement, eachFeatureLayer, extend, feature, forEach, freeze,
+    getFeatureId, getFeatureStyle, getPrototypeOf, getTileSize, getTileUrl,
+    getZoom, getZoomScale, infinite, isArray, join, keys, layerName, length,
+    max, maxDetailZoom, maxZoom, minDetailZoom, minZoom, off, ok, on, onAdd,
+    onRemove, options, properties, removeEventParent, removeFeatureLayer,
+    removeFrom, resetFeatureStyle, round, s, setFeatureStyle, setStyle, split,
+    status, statusText, style, subdomains, template, then,
+    vectorTileLayerStyles, x, y, z, zoomOffset, zoomReverse
 */
 
 import featureTile from "./FeatureTile.js";
@@ -204,12 +205,8 @@ export default Object.freeze(function vectorTileLayer(url, options) {
             y: coords.y,
             z: getZoomForUrl(coords.z)
         };
-        if (this._map && !this._map.options.crs.infinite) {
-            const invertedY = this._globalTileRange.max.y - coords.y;
-            if (this.options.tms) {
-                data['y'] = invertedY;
-            }
-            data['-y'] = invertedY;
+        if (!m_map.options.crs.infinite) {
+            data["-y"] = self._globalTileRange.max.y - coords.y;
         }
         return Util.template(
             url,

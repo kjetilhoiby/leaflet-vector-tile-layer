@@ -86,6 +86,10 @@ const options = {
 const layer = vectorTileLayer(url, options);
 ```
 
+The URL template also supports the undocumented `{-y}` option for
+»[inverted Y][Y]« if the map's [coordinate reference system][CRS] is finite
+(the default).
+
 The style can be updated at any time using the `setStyle()` method.
 
 ```js
@@ -131,10 +135,12 @@ format are supported, but support for other renderers or formats may be
 added through options in the future.
 
 
+[CRS]:  https://leafletjs.com/reference-1.7.1.html#crs
 [GL]:   http://leafletjs.com/reference-1.0.3.html#gridlayer
-[L]:    http://leafletjs.com/
 [LVG]:  https://github.com/Leaflet/Leaflet.VectorGrid
+[L]:    http://leafletjs.com/
 [PBF]:  https://developers.google.com/protocol-buffers/
 [PG]:   http://leafletjs.com/reference-1.0.3.html#polygon
 [PL]:   http://leafletjs.com/reference-1.0.3.html#polyline
 [VT]:   https://github.com/mapbox/vector-tile-spec
+[Y]:    https://github.com/Leaflet/Leaflet/issues/4284

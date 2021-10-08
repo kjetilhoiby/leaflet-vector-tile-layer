@@ -31,15 +31,15 @@
 
 /*property
     _tileZoom, abs, addEventParent, addFeatureLayer, addTo, addVectorTile,
-    arrayBuffer, bbox, call, concat, coords, createTile, crs, divideBy,
-    domElement, eachFeatureLayer, extend, feature, filter, freeze, getBounds,
-    getFeatureId, getFeatureStyle, getPrototypeOf, getTileSize, getTileUrl,
-    getZoom, getZoomScale, global, isArray, join, keys, layerName, length, map,
-    max, maxDetailZoom, maxZoom, min, minDetailZoom, minZoom, off, ok, on,
-    onAdd, onRemove, options, pointToLatLng, properties, removeEventParent,
-    removeFeatureLayer, removeFrom, resetFeatureStyle, round, s,
-    setFeatureStyle, setStyle, split, status, statusText, style, subdomains,
-    template, then, vectorTileLayerStyles, x, y, z, zoomOffset, zoomReverse
+    arrayBuffer, bbox, call, concat, coords, createTile, divideBy, domElement,
+    eachFeatureLayer, extend, feature, filter, freeze, getBounds, getFeatureId,
+    getFeatureStyle, getPrototypeOf, getTileSize, getTileUrl, getZoom,
+    getZoomScale, global, isArray, join, keys, layerName, length, map, max,
+    maxDetailZoom, maxZoom, min, minDetailZoom, minZoom, off, ok, on, onAdd,
+    onRemove, properties, removeEventParent, removeFeatureLayer, removeFrom,
+    resetFeatureStyle, round, s, setFeatureStyle, setStyle, split, status,
+    statusText, style, subdomains, template, then, unproject,
+    vectorTileLayerStyles, x, y, z, zoomOffset, zoomReverse
 */
 
 import featureTile from "./FeatureTile.js";
@@ -286,10 +286,9 @@ export default Object.freeze(function vectorTileLayer(url, options) {
 
     self.getBounds = function getBounds() {
         // Compute bounds in lat/lng for all tiles.
-        const crs = m_map.options.crs;
         const bounds = eachFeatureLayer(function (layer, idx, ignore, tile) {
             /// Convert from tile coordinates to lat/lng.
-            const toLatLng = (p) => crs.pointToLatLng(
+            const toLatLng = (p) => m_map.unproject(
                 tile.global(p),
                 tile.coords().z
             );

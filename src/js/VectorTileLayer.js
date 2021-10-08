@@ -31,10 +31,10 @@
 
 /*property
     _tileZoom, abs, addEventParent, addFeatureLayer, addTo, addVectorTile,
-    arrayBuffer, bbox, call, concat, coords, createTile, divideBy, domElement,
-    eachFeatureLayer, extend, feature, filter, freeze, getBounds, getFeatureId,
-    getFeatureStyle, getPrototypeOf, getTileSize, getTileUrl, getZoom,
-    getZoomScale, global, isArray, join, keys, layerName, length, map, max,
+    arrayBuffer, bbox, call, coords, createTile, divideBy, domElement,
+    eachFeatureLayer, extend, feature, filter, forEach, freeze, getBounds,
+    getFeatureId, getFeatureStyle, getPrototypeOf, getTileSize, getTileUrl,
+    getZoom, getZoomScale, global, isArray, join, keys, layerName, length, max,
     maxDetailZoom, maxZoom, min, minDetailZoom, minZoom, off, ok, on, onAdd,
     onRemove, properties, removeEventParent, removeFeatureLayer, removeFrom,
     resetFeatureStyle, round, s, setFeatureStyle, setStyle, split, status,
@@ -213,9 +213,9 @@ export default Object.freeze(function vectorTileLayer(url, options) {
     };
 
     function eachFeatureLayer(func) {
-        return [].concat(...Object.keys(m_featureTiles).map(
+        Object.keys(m_featureTiles).forEach(
             (tileId) => m_featureTiles[tileId].eachFeatureLayer(func)
-        ));
+        );
     }
 
     self.setStyle = function setStyle(style) {
@@ -286,7 +286,8 @@ export default Object.freeze(function vectorTileLayer(url, options) {
 
     self.getBounds = function getBounds() {
         // Compute bounds in lat/lng for all tiles.
-        const bounds = eachFeatureLayer(function (layer, idx, ignore, tile) {
+        let bounds;
+        eachFeatureLayer(function (layer, idx, ignore, tile) {
             /// Convert from tile coordinates to lat/lng.
             const toLatLng = (p) => m_map.unproject(
                 tile.global(p),
@@ -294,11 +295,18 @@ export default Object.freeze(function vectorTileLayer(url, options) {
             );
 
             const bbox = layer.bbox();
-            return [toLatLng(bbox.min), toLatLng(bbox.max)];
+            const tileBounds = latLngBounds(
+                toLatLng(bbox.min),
+                toLatLng(bbox.max)
+            );
+            if (!bounds) {
+                bounds = tileBounds;
+            } else {
+                bounds.extend(tileBounds);
+            }
         });
 
-        // Compute bounds from tile corners.
-        return latLngBounds([].concat(...bounds));
+        return bounds;
     };
 
     return self;

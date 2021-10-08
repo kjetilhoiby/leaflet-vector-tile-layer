@@ -32,8 +32,8 @@
 /*property
     add, addFeatureLayer, addVectorTile, appendChild, coords, create, divideBy,
     domElement, eachFeatureLayer, extent, feature, forEach, freeze,
-    getFeatureStyle, getTileSize, global, keys, layers, length, map, push,
-    scaleBy, setAttribute, x, y
+    getFeatureStyle, getTileSize, global, keys, layers, length, push, scaleBy,
+    setAttribute, x, y
 */
 
 import featureLayer from "./FeatureLayer.js";
@@ -82,7 +82,9 @@ export default Object.freeze(function featureTile(coords, layer) {
     };
 
     self.global = (p) => coords.scaleBy(m_tileSize).add(p);
-    self.eachFeatureLayer = (f) => m_layers.map((...args) => f(...args, self));
+    self.eachFeatureLayer = (func) => m_layers.forEach(
+        (...args) => func(...args, self)
+    );
     self.domElement = () => m_svg;
     self.coords = () => coords;
 

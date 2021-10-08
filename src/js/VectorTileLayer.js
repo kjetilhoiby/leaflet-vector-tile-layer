@@ -283,5 +283,18 @@ export default Object.freeze(function vectorTileLayer(url, options) {
         return self;
     };
 
+    self.getBounds = function getBounds() {
+        let bounds = null;
+        eachFeatureLayer(function(featureLayer, idx, arr, featureTile) {
+            const tileBounds = featureLayer.getBounds(featureTile.coords());
+            if (bounds == null) {
+                bounds = tileBounds;
+            } else {
+                bounds.extend(tileBounds);
+            }
+        });
+        return bounds;
+    };
+
     return self;
 });

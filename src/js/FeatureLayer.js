@@ -42,10 +42,12 @@ import {
     DomUtil,
     extend,
     Layer,
+    LatLng,
+    LatLngBounds,
     Path,
     point,
     Polygon,
-    SVG
+    SVG,
 } from "leaflet";
 import {VectorTileFeature} from "@mapbox/vector-tile";
 
@@ -134,6 +136,25 @@ function featureLayer(feature, layerName, rootGroup, pxPerExtent, options) {
         }
 
         return path;
+    };
+
+    self.getBounds = function getBounds(coords) {
+        const {x, y, z} = coords;
+        const size = self.feature.extent * Math.pow(2, z);
+        const x0 = self.feature.extent * x;
+        const y0 = self.feature.extent * y;
+        const [x1, y1, x2, y2] = self.feature.bbox();
+        const bounds = new LatLngBounds(
+            new LatLng(
+                360 / Math.PI * Math.atan(Math.exp( (180 - (y1 + y0) * 360 / size) * Math.PI / 180)) - 90,
+                (x1 + x0) * 360 / size - 180
+            ),
+            new LatLng(
+                360 / Math.PI * Math.atan(Math.exp( (180 - (y2 + y0) * 360 / size) * Math.PI / 180)) - 90,
+                (x2 + x0) * 360 / size - 180
+            )
+        );
+        return bounds;
     };
 
     switch (m_type) {

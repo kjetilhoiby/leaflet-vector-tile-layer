@@ -63,6 +63,10 @@ highlight certain features, for example.
 For compatibility, support for the `vectorTileLayerStyles` option and
 `set/resetFeatureStyle()` method is also provided.
 
+Another added feature of `VectorTileLayer` is a `getBounds()` function.
+After the `load` event, it returns the bounds occupied by the features on
+all currently loaded tiles.
+
 `VectorTileLayer` supports all options provided by [`GridLayer`][GL].
 Additionally, the following options are provided:
 

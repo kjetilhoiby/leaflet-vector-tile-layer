@@ -31,19 +31,20 @@
 
 /*property
     _tileZoom, abs, addEventParent, addFeatureLayer, addTo, addVectorTile,
-    arrayBuffer, call, coords, createTile, divideBy, domElement,
-    eachFeatureLayer, extend, feature, filter, forEach, freeze, getFeatureId,
-    getFeatureStyle, getPrototypeOf, getTileSize, getTileUrl, getZoom,
-    getZoomScale, isArray, join, keys, layerName, length, maxDetailZoom,
-    maxZoom, minDetailZoom, minZoom, off, ok, on, onAdd, onRemove, properties,
-    removeEventParent, removeFeatureLayer, removeFrom, resetFeatureStyle, round,
-    s, setFeatureStyle, setStyle, split, status, statusText, style, subdomains,
+    arrayBuffer, bbox, call, concat, coords, createTile, crs, divideBy,
+    domElement, eachFeatureLayer, extend, feature, filter, freeze, getBounds,
+    getFeatureId, getFeatureStyle, getPrototypeOf, getTileSize, getTileUrl,
+    getZoom, getZoomScale, global, isArray, join, keys, layerName, length, map,
+    max, maxDetailZoom, maxZoom, min, minDetailZoom, minZoom, off, ok, on,
+    onAdd, onRemove, options, pointToLatLng, properties, removeEventParent,
+    removeFeatureLayer, removeFrom, resetFeatureStyle, round, s,
+    setFeatureStyle, setStyle, split, status, statusText, style, subdomains,
     template, then, vectorTileLayerStyles, x, y, z, zoomOffset, zoomReverse
 */
 
 import featureTile from "./FeatureTile.js";
 import fetch from "./fetch.js";
-import {GridLayer, Util} from "leaflet";
+import {GridLayer, Util, latLngBounds} from "leaflet";
 import Pbf from "pbf";
 import {VectorTile} from "@mapbox/vector-tile";
 
@@ -212,9 +213,9 @@ export default Object.freeze(function vectorTileLayer(url, options) {
     };
 
     function eachFeatureLayer(func) {
-        Object.keys(m_featureTiles).forEach(
+        return [].concat(...Object.keys(m_featureTiles).map(
             (tileId) => m_featureTiles[tileId].eachFeatureLayer(func)
-        );
+        ));
     }
 
     self.setStyle = function setStyle(style) {
@@ -281,6 +282,24 @@ export default Object.freeze(function vectorTileLayer(url, options) {
         featureLayer.removeFrom(m_map);
 
         return self;
+    };
+
+    self.getBounds = function getBounds() {
+        // Compute bounds in lat/lng for all tiles.
+        const crs = m_map.options.crs;
+        const bounds = eachFeatureLayer(function (layer, idx, ignore, tile) {
+            /// Convert from tile coordinates to lat/lng.
+            const toLatLng = (p) => crs.pointToLatLng(
+                tile.global(p),
+                tile.coords().z
+            );
+
+            const bbox = layer.bbox();
+            return [toLatLng(bbox.min), toLatLng(bbox.max)];
+        });
+
+        // Compute bounds from tile corners.
+        return latLngBounds([].concat(...bounds));
     };
 
     return self;

@@ -30,8 +30,8 @@
  */
 
 /*property
-    _map, addClass, addInteractiveTarget, addTo, appendChild, className, color,
-    create, dashArray, dashOffset, feature, fill, fillColor, fillOpacity,
+    _map, addClass, addInteractiveTarget, addTo, appendChild, bbox, className,
+    color, create, dashArray, dashOffset, feature, fill, fillColor, fillOpacity,
     fillRule, freeze, interactive, layerName, lineCap, lineJoin, loadGeometry,
     map, opacity, options, pointsToPath, properties, prototype, removeAttribute,
     removeClass, removeFrom, removeInteractiveTarget, scaleBy, setAttribute,
@@ -40,12 +40,13 @@
 
 import {
     DomUtil,
-    extend,
     Layer,
     Path,
-    point,
     Polygon,
-    SVG
+    SVG,
+    bounds,
+    extend,
+    point
 } from "leaflet";
 import {VectorTileFeature} from "@mapbox/vector-tile";
 
@@ -136,6 +137,13 @@ function featureLayer(feature, layerName, rootGroup, pxPerExtent, options) {
         return path;
     };
 
+    const scalePoint = (p) => point(p).scaleBy(pxPerExtent);
+
+    self.bbox = function bbox() {
+        const [x0, y0, x1, y1] = feature.bbox();
+        return bounds(scalePoint([x0, y0]), scalePoint([x1, y1]));
+    };
+
     switch (m_type) {
     case "Point":
         break;
@@ -144,9 +152,7 @@ function featureLayer(feature, layerName, rootGroup, pxPerExtent, options) {
         m_path.setAttribute(
             "d",
             SVG.pointsToPath(
-                feature.loadGeometry().map(
-                    (ring) => ring.map((p) => point(p).scaleBy(pxPerExtent))
-                ),
+                feature.loadGeometry().map((ring) => ring.map(scalePoint)),
                 "Polygon" === m_type
             )
         );

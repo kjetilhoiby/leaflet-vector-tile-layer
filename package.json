@@ -24,7 +24,6 @@
     "dist/VectorTileLayer.umd.js.map",
     "dist/VectorTileLayer.umd.min.js",
     "dist/VectorTileLayer.umd.min.js.map",
-    "package-lock.json",
     "package.json"
   ],
   "main": "dist/VectorTileLayer.umd.min.js",
